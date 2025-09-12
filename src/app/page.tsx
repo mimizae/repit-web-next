@@ -9,7 +9,7 @@ import LogoText from "@/assets/logo-text-white.svg";
 
 const SPLASH_DURATION = 3000;
 
-export default function SplashPage() {
+export default function Page() {
   const router = useRouter();
 
   useEffect(() => {
