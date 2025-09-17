@@ -16,16 +16,16 @@ interface HeaderProps {
 // 홈 -> 로고, 분석화면 -> 홈 아이콘
 // 오른쪽 아이콘은 홈 헤더에만 존재 -> 프로필 아이콘
 
-export default function Header({ title, leftIcon, rightIcon }: HeaderProps) {
+export default function Header({ title, leftIcon }: HeaderProps) {
   const pathname = usePathname();
 
   const isHome = pathname === "/home";
-  const isAnalysis = pathname === "/history";
+  const isAnalysis = pathname === "/analysis";
 
   return (
-    <header className="w-full h-[74px] pt-[30px] p-5 flex items-center justify-between border-b border-gray-300">
+    <header className="w-full h-[74px] pt-[30px] grid grid-cols-3 p-5 border-b border-gray-300">
       {/* 왼쪽 */}
-      <div className="flex items-center">
+      <div className="flex items-center justify-start">
         {isHome ? (
           <LogoIcon />
         ) : isAnalysis ? (
@@ -46,14 +46,14 @@ export default function Header({ title, leftIcon, rightIcon }: HeaderProps) {
       </div>
 
       {/* 가운데 */}
-      <div className="flex-1 flex justify-center">
+      <div className="flex items-center justify-center">
         {!isHome && <span className="subheadline-03-bold">{title}</span>}
       </div>
 
       {/* 오른쪽 */}
-      <div className="flex items-center">
+      <div className="flex items-center justify-end">
         {isHome && (
-          <button className="w-full h-full">
+          <button>
             <Image
               src="/assets/profile.svg"
               width={32}

@@ -45,13 +45,13 @@ export default function Page() {
           alt="히스토리"
         />
       ),
-      onClick: () => router.push("/histroy"),
+      onClick: () => router.push("/history"),
     },
   ];
 
   return (
-    <div>
-      <Header />
+    <div className="">
+      <Header title="m" />
       <div className="flex flex-col mt-[55px] gap-[12px]">
         {sections.map((section) => (
           <SectionButton
