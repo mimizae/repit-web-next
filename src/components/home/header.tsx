@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import LogoIcon from "@/assets/logo-black.svg";
 import Image from "next/image";
 
+//TODO: 오른쪽 아이콘도 고려
+
 interface HeaderProps {
   title?: string;
   leftIcon?: React.ReactNode;
@@ -18,7 +20,7 @@ export default function Header({ title, leftIcon, rightIcon }: HeaderProps) {
   const pathname = usePathname();
 
   const isHome = pathname === "/home";
-  const isAnalysis = pathname === "/analysis";
+  const isAnalysis = pathname === "/history";
 
   return (
     <header className="w-full h-[74px] pt-[30px] p-5 flex items-center justify-between border-b border-gray-300">
