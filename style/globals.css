@@ -24,6 +24,7 @@ body {
   font-family: "NanumBarunGothic";
 }
 
+/* history 달력 */
 .react-calendar {
   @apply w-full bg-white shadow-md p-4;
 }
@@ -49,6 +50,7 @@ body {
   gap: 20px; /* 요일 간격 */
 }
 
+/* bottom-sheets */
 @keyframes slideUp {
   from {
     transform: translateY(100%);
