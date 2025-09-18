@@ -23,3 +23,41 @@ body {
   color: var(--foreground);
   font-family: "NanumBarunGothic";
 }
+
+.react-calendar {
+  @apply w-full bg-white shadow-md p-4;
+}
+
+.react-calendar__tile--active {
+  @apply bg-blue-500 text-white rounded-full;
+}
+
+.react-calendar__tile--now {
+  @apply border border-black;
+}
+
+.react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px 20px; /* 날짜 칸 간격 */
+}
+
+/* 요일 부분도 grid */
+.react-calendar__month-view__weekdays {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px; /* 요일 간격 */
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
