@@ -2,6 +2,9 @@
 
 @theme {
   /*primary colors*/
+  --color-primary-10: #cffbd7;
+  --color-primary-30: #30ba64;
+  --color-primary-50: #f1faf5;
   --color-primary-100: #a0dd9e;
   --color-primary-200: #6cbb69;
   --color-primary-300: #3e945c;
@@ -9,6 +12,7 @@
   --color-primary-500: #04614a;
 
   /* gray colors */
+  --color-gray-30: #d4e0d8;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f2f4f6;
   --color-gray-200: #e5e8eb;
