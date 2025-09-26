@@ -10,50 +10,45 @@ export default function DetailScoreGrid({
   left: Side[];
   right: Side[];
 }) {
-  // part들을 헤더로 추출 (왼쪽 기준)
   const parts = left.map((item) => item.part);
 
+  // 공통 스타일 모음
+  const thClass = "body-02-bold text-gray-700";
+  const labelTdClass = "w-20 body-02-bold text-gray-600 pt-3";
+  const scoreTdClass = "headline-01 text-primary-300 pt-3";
+
   return (
-    <div className="rounded-[15px] bg-[linear-gradient(180deg,#F9FAFB_0%,#EDEEF0_100%)] p-5 m-5">
-      {/* 헤더 */}
-      <div
-        className={`grid grid-cols-${
-          parts.length + 1
-        } text-center gap-4 body-01-bold mb-4`}
-      >
-        <div /> {/* 빈칸 (왼쪽/오른쪽 자리) */}
-        {parts.map((part) => (
-          <div key={part}>{part}</div>
-        ))}
-      </div>
-
-      {/* 왼쪽 행 */}
-      <div
-        className={`grid grid-cols-${
-          parts.length + 1
-        } text-center gap-4 items-center mb-2`}
-      >
-        <div className="body-02-bold text-gray-600">왼쪽</div>
-        {left.map(({ part, score }) => (
-          <div key={`left-${part}`} className="body-01-bold text-gray-900">
-            {score}
-          </div>
-        ))}
-      </div>
-
-      {/* 오른쪽 행 */}
-      <div
-        className={`grid grid-cols-${
-          parts.length + 1
-        } text-center gap-4 items-center`}
-      >
-        <div className="body-02-bold text-gray-600">오른쪽</div>
-        {right.map(({ part, score }) => (
-          <div key={`right-${part}`} className="body-01-bold text-gray-900">
-            {score}
-          </div>
-        ))}
-      </div>
+    <div className="rounded-[15px] bg-[linear-gradient(180deg,#F9FAFB_0%,#EDEEF0_100%)] p-5 m-7 overflow-x-auto">
+      <table className="w-full table-fixed text-center border-collapse">
+        <thead>
+          <tr>
+            <th className={thClass}></th>
+            {parts.map((part) => (
+              <th key={part} className={thClass}>
+                {part}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className={labelTdClass}>왼쪽</td>
+            {left.map(({ part, score }) => (
+              <td key={`left-${part}`} className={scoreTdClass}>
+                {score}
+              </td>
+            ))}
+          </tr>
+          <tr>
+            <td className={labelTdClass}>오른쪽</td>
+            {right.map(({ part, score }) => (
+              <td key={`right-${part}`} className={scoreTdClass}>
+                {score}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

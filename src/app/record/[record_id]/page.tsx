@@ -47,7 +47,7 @@ export default function Page() {
             { part: "발", score: "C" },
           ],
           right: [
-            { part: "무릎", score: "B" },
+            { part: "무릎", score: "A" },
             { part: "팔꿈치", score: "C" },
             { part: "손목", score: "A" },
             { part: "골반", score: "B" },
