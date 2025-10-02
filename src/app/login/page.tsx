@@ -6,6 +6,14 @@ import LogoTextGreen from "@/assets/logo-text-green.svg";
 import Image from "next/image";
 
 export default function Page() {
+  const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+  const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+
+  // const handleSocialLogin = () => {
+  //   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  //   window.location.href = kakaoAuthUrl;
+  // };
+
   return (
     <main className="w-full h-screen flex flex-col items-center justify-center bg-white px-5">
       {/* 로고 등장 애니메이션 */}
@@ -30,7 +38,10 @@ export default function Page() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.6 }}
       >
-        <button className="w-full flex items-center justify-center gap-[10px] py-[14px] bg-[#FAE407] rounded-[8px] cursor-pointer">
+        <button
+          onClick={() => {}}
+          className="w-full flex items-center justify-center gap-[10px] py-[14px] bg-[#FAE407] rounded-[8px] cursor-pointer"
+        >
           <Image
             src="/assets/kakao.svg"
             alt="카카오 아이콘"
