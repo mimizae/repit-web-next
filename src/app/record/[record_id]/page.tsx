@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { deleteRecordVideo } from "@/apis/record/record.api";
+import { deleteRecordVideo, getRecordDetail } from "@/apis/record/record.api";
 import ConfirmModal from "@/components/common/confirm-modal";
 import Header from "@/components/common/header";
 import AnalysisCard from "@/components/record-detail/analysis-card";
@@ -28,37 +28,19 @@ export default function Page() {
   };
 
   useEffect(() => {
-    // 더미 데이터 -> 추후 실제 데이터 fetch
-    const dummyResponse = {
-      result: {
-        record_id: Number(record_id),
-        pose_type: "SQUAT",
-        recorded_at: "2025-09-10T14:20:10",
-        duration: "00:10:30",
-        score: "A",
-        video_name: "https://s3.aws.com/repit/videos/1234.mp4",
-        scoreDetails: {
-          left: [
-            { part: "무릎", score: "B" },
-            { part: "팔꿈치", score: "C" },
-            { part: "손목", score: "A" },
-            { part: "골반", score: "B" },
-            { part: "발", score: "C" },
-          ],
-          right: [
-            { part: "무릎", score: "A" },
-            { part: "팔꿈치", score: "C" },
-            { part: "손목", score: "A" },
-            { part: "골반", score: "B" },
-            { part: "발", score: "C" },
-          ],
-          good: "무릎 각도와 상체 밸런스가 안정적입니다. 특히 하체 근력이 고르게 사용되었습니다. 무릎 각도와 상체 밸런스가 안정적입니다. 특히 하체 근력이 고르게 사용되었습니다.",
-          bad: "팔꿈치가 반복적으로 흔들려 상체 균형이 다소 불안정했습니다. 코어 근육 사용을 보완하면 좋습니다. 팔꿈치가 반복적으로 흔들려 상체 균형이 다소 불안정했습니다. 코어 근육 사용을 보완하면 좋습니다.",
-        },
-      },
+    const fetchRecordDetail = async () => {
+      try {
+        const response = await getRecordDetail(Number(record_id));
+        console.log(response);
+        setRecordDetail(response.result);
+      } catch (error) {
+        console.error("운동 기록 불러오기 실패:", error);
+      }
     };
 
-    setRecordDetail(dummyResponse.result);
+    if (record_id) {
+      fetchRecordDetail();
+    }
   }, [record_id]);
 
   if (!recordDetail) return <div>Loading...</div>;
