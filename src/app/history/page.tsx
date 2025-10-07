@@ -40,7 +40,7 @@ export default function Page() {
         const year = today.getFullYear();
         const month = today.getMonth() + 1; // getMonth()는 0부터 시작하니까 +1 필요
 
-        const response = await getMonthlyRecords({ year, month });
+        const response = await getMonthlyRecords({ year, month }); // TODO: 서버에 기본 데이터 넣어달라고 요청하기
 
         if (response.isSuccess) {
           if (response.result && response.result.length > 0) {
