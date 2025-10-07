@@ -36,7 +36,8 @@ export default function Page() {
 
         <div className="relative flex p-4 items-center gap-2 bg-gradient-to-br backdrop-blur-md rounded-xl border border-white shadow-sm">
           <div className="flex-1 body-01-bold tracking-widest select-none">
-            {accessToken ? "•".repeat(12) : "재로그인 해주세요."}
+            {accessToken ? "•".repeat(12) : "재로그인 해주세요."}{" "}
+            {/* 토큰 만료되면 스토어 비워야 하나...? */}
           </div>
 
           <button
@@ -53,16 +54,21 @@ export default function Page() {
           </button>
         </div>
       </div>
-
+      <button
+        onClick={() => router.replace("/home")}
+        className="mt-4 px-6 py-3 rounded-2xl bg-primary-300 text-white hover:bg-primary-200 shadow-md cursor-pointer"
+      >
+        홈으로 바로가기 🏠
+      </button>
       <AnimatePresence>
         {showCopySuccess && (
           <motion.div
             key="copy-hint"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -50 }} // 화면 상단 위에서 시작
+            animate={{ opacity: 1, y: 50 }} // 살짝 내려오기
+            exit={{ opacity: 0, y: -50 }} // 다시 위로 올라가면서 사라짐
             transition={{ duration: 0.3 }}
-            className="body-01-bold bg-white px-6 py-4 rounded-lg shadow-md"
+            className="fixed top-0 left-1/2 -translate-x-1/2 z-50 body-01-bold bg-white pt-5 p-4 rounded-lg border border-gray-100 shadow-md"
           >
             키를 복사했습니다! 🔑
           </motion.div>
