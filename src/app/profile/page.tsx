@@ -5,8 +5,12 @@ import Header from "@/components/common/header";
 import { useUserStore } from "@/stores/useUserStore";
 import Image from "next/image";
 import ConfirmModal from "@/components/common/confirm-modal";
+import { postUserLogout } from "@/apis/auth/auth.api";
+import { deleteUserInfo } from "@/apis/user/user.api";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const user = useUserStore((state) => state.user); // TODO: 로그인 이후 저장된 내 정보 꺼내서 쓰기
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달이 열렸는지
@@ -14,8 +18,21 @@ export default function Page() {
   const [modalExtraInfo, setModalExtraInfo] = useState<string | undefined>(); // 모달 추가 정보 기입
   const [modalAction, setModalAction] = useState<() => void>(() => () => {}); // 모달 confirm action setting
 
-  const handleLogoutButtonClick = () => console.log("로그아웃 처리 로직"); // TODO: 실제 로그아웃 처리 로직으로 변경
-  const handleWithdrawButtonClick = () => console.log("회원탈퇴 처리 로직"); // TODO: 실제 탈퇴 처리 로직으로 변경
+  const handleUserAction = async (
+    actionName: "로그아웃" | "회원탈퇴",
+    apiCall: () => Promise<any>
+  ) => {
+    try {
+      const response = await apiCall();
+      console.log(`${actionName} 성공:`, response);
+
+      useUserStore.getState().clearUser?.();
+      router.replace("/login");
+    } catch (err) {
+      console.error(`${actionName} 실패:`, err);
+      alert(`${actionName}에 실패했습니다. 다시 시도해주세요.`);
+    }
+  };
 
   const handleModalOpen = (
     type: string,
@@ -59,16 +76,18 @@ export default function Page() {
         <Button
           text="로그아웃"
           variant="primary"
-          onClick={() => handleModalOpen("로그아웃", handleLogoutButtonClick)}
+          onClick={() =>
+            handleModalOpen("로그아웃", () =>
+              handleUserAction("로그아웃", postUserLogout)
+            )
+          }
         />
         <Button
           text="회원탈퇴"
           variant="secondary"
           onClick={() =>
-            handleModalOpen(
-              "회원탈퇴",
-              handleWithdrawButtonClick,
-              "탈퇴 시 모든 과거 운동 기록, 회원 정보가 삭제됩니다."
+            handleModalOpen("회원탈퇴", () =>
+              handleUserAction("회원탈퇴", deleteUserInfo)
             )
           }
         />
