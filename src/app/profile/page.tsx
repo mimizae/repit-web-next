@@ -62,12 +62,12 @@ export default function Page() {
           height={81}
           alt="기본 프로필 이미지"
         />
-        <span className="headline-01">{"김태현"}</span>
+        <span className="headline-01">{user?.nickname}</span>
       </div>
       <div className="w-full flex items-center gap-[15px] px-10 mt-[31px]">
         <span className="w-12 body-01-bold">이메일</span>
         <input
-          value={"mimizae@g.hongik.com"}
+          value={user?.email}
           className="w-full p-[10px] body-01-regular text-gray-400 border border-gray-300 rounded-[5px]"
           disabled
         />
