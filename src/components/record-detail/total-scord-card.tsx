@@ -1,7 +1,6 @@
 import CardLayout from "./card-layout";
 import { RecordDetail } from "@/apis/record/record.type";
 import { useUserStore } from "@/stores/useUserStore";
-import { getTotalGrade } from "@/utils/getTotalGrade";
 import Image from "next/image";
 
 interface TotalScoreCardProps {
@@ -16,7 +15,6 @@ export default function TotalScoreCard({
   const user = useUserStore((state) => state.user);
 
   const numericScore = Number(recordDetail.total_score);
-  const totalGrade = getTotalGrade(numericScore);
 
   return (
     <CardLayout>
@@ -28,7 +26,7 @@ export default function TotalScoreCard({
           <span className="headline-01">{user?.nickname}님의 자세 점수</span>
         </div>
         <Image
-          src={`/assets/score-${totalGrade}.svg`}
+          src={`/assets/score-${numericScore}.svg`}
           alt="분석 총 점수"
           width={80}
           height={80}
