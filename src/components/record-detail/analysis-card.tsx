@@ -14,8 +14,7 @@ export default function AnalysisCard({ recordDetail }: AnalysisCardProps) {
       </div>
       <div className="border-t border-gray-300" />
       <DetailScoreGrid scoreDetails={recordDetail.score_details} />
-      <TextSection title="Good" text={recordDetail.analysis_text} />
-      <TextSection title="Bad" text={recordDetail.analysis_text} />
+      <TextSection text={recordDetail.analysis_text} />
     </CardLayout>
   );
 }
