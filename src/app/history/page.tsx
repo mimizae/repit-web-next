@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Calendar from "react-calendar";
 import { useRouter, useSearchParams } from "next/navigation";
 import "/style/globals.css";
@@ -15,7 +15,7 @@ import {
 } from "@/apis/calendar/calendar.api";
 import { RecordItem } from "@/apis/calendar/calendar.type";
 
-export default function Page() {
+function HistoryContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialDateParam = searchParams.get("date");
@@ -180,5 +180,19 @@ export default function Page() {
         </div>
       </BottomSheets>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full h-screen relative bg-gray-50 flex items-center justify-center">
+          <div className="text-gray-500">로딩 중...</div>
+        </div>
+      }
+    >
+      <HistoryContent />
+    </Suspense>
   );
 }
