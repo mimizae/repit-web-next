@@ -9,7 +9,7 @@ interface VideoCardProps {
 export default function VideoCard({ videoUrl, onDeleteClick }: VideoCardProps) {
   const handleDownloadVideo = async () => {
     try {
-      // S3 URL에서 영상 다운로드
+      // S3 URL에서 영상 다운로드, 브라우저가 이 주소로 가서 파일을 다운로드 받는 것!
       const response = await fetch(videoUrl);
       const blob = await response.blob();
 

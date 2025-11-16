@@ -26,3 +26,12 @@ export type GetRecordDetailResponse = ApiResponse<RecordDetail>;
 
 // 운동 영상 삭제 응답
 export type DeleteRecordVideoResponse = ApiResponse<null>;
+
+export interface VideoS3UrlResult {
+  url: string;
+  object_key: string;
+  expires_in_seconds: number;
+}
+
+// 운동 영상 s3 Url 발급 응답
+export type GetVideoS3UrlResponse = ApiResponse<VideoS3UrlResult>;
