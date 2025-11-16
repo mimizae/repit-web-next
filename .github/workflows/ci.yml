@@ -19,10 +19,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install yarn
-        uses: yarn/action-setup@v4
-        with:
-          version: 9.12.0
+      # Yarn 설치
+      - name: Install Yarn v1
+        run: npm install -g yarn@1
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -30,14 +29,17 @@ jobs:
           node-version: "22.x"
           cache: "yarn"
 
+      # node_modules 설치
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      # Vite 빌드
       - name: Build project with Vite
         id: build
-        run: yarn run build
+        run: yarn build
         continue-on-error: true
 
+      # 빌드 결과 판단
       - name: Evaluate build status
         id: status
         run: |
@@ -49,6 +51,8 @@ jobs:
           fi
           echo "result=$result" >> $GITHUB_OUTPUT
           echo "message=$message" >> $GITHUB_OUTPUT
+
+      # Pull Request에 코멘트 남기기
       - name: Add comment to PR with build status
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
@@ -62,6 +66,8 @@ jobs:
               issue_number: prNumber,
               body: `### 빌드 결과\n${message}`
             });
+
+      # 실패 시 CI 실패 처리
       - name: Fail job if build failed
         if: steps.build.outcome == 'failure'
         run: exit 1
