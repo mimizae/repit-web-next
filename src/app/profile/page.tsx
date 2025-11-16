@@ -20,7 +20,7 @@ export default function Page() {
 
   const handleUserAction = async (
     actionName: "로그아웃" | "회원탈퇴",
-    apiCall: () => Promise<any>
+    apiCall: () => Promise<unknown>
   ) => {
     try {
       const response = await apiCall();
