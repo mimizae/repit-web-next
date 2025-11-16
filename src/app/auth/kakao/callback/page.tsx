@@ -4,9 +4,9 @@ import Spinner from "@/components/common/spinner";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
-export default function Page() {
+function KakaoCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
@@ -32,10 +32,10 @@ export default function Page() {
             member_id: data.member.memberId,
             nickname: data.member.name,
             email: data.member.email,
-            profile_image_url: "", // 아직 없어서 빈 문자열로 초기화
+            profile_image_url: "",
           });
 
-          router.replace("/copy-key"); // 토큰 복사 페이지로 이동
+          router.replace("/copy-key");
         } else {
           console.error("로그인 실패:", data);
         }
@@ -45,11 +45,25 @@ export default function Page() {
     };
 
     handleLogin();
-  }, [code, setAccessToken, router]);
+  }, [code, setAccessToken, setUser, router]);
 
   return (
     <div className="h-screen flex justify-center items-center">
       <Spinner />
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="h-screen flex justify-center items-center">
+          <Spinner />
+        </div>
+      }
+    >
+      <KakaoCallbackContent />
+    </Suspense>
   );
 }
